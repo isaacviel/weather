@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+   
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    
+    
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale= 1, user-scalable = no" />
+        
+        <link rel=StyleSheet href="weather.css" type="text/css" />
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+        
+        <script type="text/javascript" src="weather.js"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+    
+    </head>
+    
+    
+    <body>
+        
+        <div id=head>
+            
+            <h1>All Weather Checker</h1>
+            
+        </div>
+        
+        <div id="input">
+            
+            <div id="inputElements">
+                
+                <input id="zip" type="text" placeholder="Enter US Zip Code" />
+                
+            </div>
+            
+            <div id="inputElements">
+            
+                <input type="button" id="btn" value="Get Weather" onclick="getLocation()" />
+            
+            </div>
+            
+        </div>
+        
+        <div id="resultsDiv">
+        
+            <div class="resultsDisplay">
+                    
+                <p id="yahooLabel" class="weatherLabels">
+                    
+                    According to Yahoo!
+                    
+                </p>
+                    
+                <div id="yahooDiv"><!--incoming data--> 0</div>
+                    
+                <div class="linkButton">
+                    
+                    <a class="serviceLinks" id="yahooLink" <!--incomming link--> <input type="button" id="btn" value="Get All Weather" /></a>
+                  
+                </div>
+                    
+                <div class="atribUi">
+                   
+                    <a href="https://www.yahoo.com/?ilc=401" target="_blank"> <img src="https://poweredby.yahoo.com/purple.png" width="134" height="29"/> </a> 
+                    
+                </div>
+                
+            </div>
+            
+            <div class="resultsDisplay">
+                 
+                <p id="wuLabel" class="weatherLabels">
+                    
+                    According to Wunderground
+                   
+                </p>
+                    
+                <div id="wuDiv"><!--incoming wu data--> 0</div>
+                
+                <div class="linkButton">
+                    
+                    <a class="serviceLinks" id="wuLink" <!--incomming link--> <input type="button" id="btn" value="Get All Weather" /></a>    
+                    
+                </div>
+                    
+                <div class="atribUi">
+                   
+                    <a href="http://www.wunderground.com" target="_blank"> <img src="http://isaacviel.name/weather/wundergroundLogo_4c_horz.png"/> </a> 
+                    
+                </div>    
+                   
+            </div>
+                
+            <div class="resultsDisplay">
+                        
+                <p id="owmLabel" class="weatherLabels">
+                        
+                    According to Open Weather Maps
+                        
+                </p>
+                
+                <div id="owmDiv"><!--incoming owm data--> 0</div>
+                
+                <div class="linkButton">
+                    
+                    <a class="serviceLinks" id="owmLink" <!--incomming link--> <input type="button" id="btn" value="Get All Weather" /></a>    
+                    
+                </div>
+                    
+                <div class="atribUi">
+                   
+                    <a href="http://www.wunderground.com" target="_blank"> <img src="http://isaacviel.name/weather/wundergroundLogo_4c_horz.png"/> </a> 
+                    
+                </div>  
+            
+            </div>
+            
+            <div class="resultsDisplay">
+               
+                <p id="wioLabel" class="weatherLabels">
+                   
+                    According to Weather.io
+                    
+               </p>
+                
+                <div id="wioDiv"><!--incoming wio data--> 0</div>
+                   
+            </div>
+            
+            <div class="resultsDisplay">
+                
+                <p id="average" class="weatherLabels">
+                    
+                    Average Reported Weather
+                   
+                </p>
+                 
+                <div id="averageDiv"><!--incoming average data--> 0</div>
+                
+            </div>
+        
+        </div>    
+    
+    </body>
+
+</html>
+
