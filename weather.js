@@ -8,8 +8,6 @@ function geonamesCallback ( data ) {
     lng = +data.postalcodes[0].lng;
     lat = +data.postalcodes[0].lat;
     placeName = data.postalcodes[0].placeName;
-    console.log(placeName);
-    console.log('geocode');
     getMap();
 }
 
@@ -49,11 +47,10 @@ function getLocation() {
     
     // create a script for the Open Weather Maps API using zip input and add it to the head
     setTimeout(function() {
-        var wioScript = document.createElement('script');
-        console.log('wioScript');
-        wioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?callback=weatherioCallback";
-        wioScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(wioScript);
+        var fioScript = document.createElement('script');
+        fioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?callback=forcastioCallback";
+        fioScript.async = true;
+        document.getElementsByTagName( 'head' )[ 0 ].appendChild(fioScript);
     },1000);
 }
 
@@ -85,16 +82,17 @@ function owmCallback ( data ) {
     document.getElementById( 'owmLink' ).setAttribute( 'href', 'http://openweathermap.org/city/' + owmLink );
 }
 
-// Parse data from wunderground api and add it to empty div
-function weatherioCallback ( data ) {
-    wioJSON = +data.currently.temperature;
-    document.getElementById( 'wioDiv' ).innerHTML = wioJSON + '&ordm';
+// Parse data from forecast.io DarkSky api and add it to empty div
+function forcastioCallback ( data ) {
+    fioJSON = +data.currently.temperature;
+    document.getElementById( 'fioDiv' ).innerHTML = fioJSON + '&ordm';
+    document.getElementById( 'fioLink' ).setAttribute( 'href', "http://forecast.io/#/f/" + lat + "," + lng );
     getAverage();
 }
 
 //find average and inject into page
 function getAverage () {
-    var average = ( Math.round( ( yahooJSON + owmJSON + wuJSON + wioJSON ) / 4 ) );
+    var average = ( Math.round( ( yahooJSON + owmJSON + wuJSON + fioJSON ) / 4 ) );
     document.getElementById( 'averageDiv' ).innerHTML = average + '&ordm';
 }    
 
@@ -108,7 +106,6 @@ function getMap() {
     buildMap.setAttribute( 'id', 'map' );
     currentDiv = document.getElementById( "input" );
     document.body.insertBefore( buildMap, currentDiv );
-    console.log( 'map' );
     L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
     var map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ lat, lng ], 12 );
     var popup = L.popup()
