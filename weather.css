@@ -54,8 +54,13 @@ body, html {
 	
 }
 
-a:link { color: #585858 }
-a:link { font-weight: bold }
+a:link {
+	color: #585858;
+	font-weight: lighter;
+}
+
+a:hover { font-weight: bold }
+a:visited { color: #383838 }
 
 
 

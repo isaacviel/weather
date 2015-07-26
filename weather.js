@@ -107,12 +107,20 @@ function getMap() {
     currentDiv = document.getElementById( "input" );
     document.body.insertBefore( buildMap, currentDiv );
     L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
-    var map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ lat, lng ], 12 );
+    var map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ lat, lng ], 6 );
     var popup = L.popup()
         .setLatLng( [ lat, lng ] )
         .setContent( placeName )
         .openOn( map );
+    L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
+        attribution: 'Map data &#169 OpenWeatherMap',    
+    }).addTo(map);
 }
+
+
+
+
+
 
 
 
