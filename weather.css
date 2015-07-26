@@ -251,6 +251,63 @@ h1 {
 	margin-bottom: 20px;
 }
 
+#footer {
+	position: relative;
+	margin-top: 35px
+}
+
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ iPhone 6+ Landscape ~~~~~~~~~~~~~~~~~~~~~ */
+@media only screen 
+	and (min-device-width : 376px) 
+	and (max-device-width : 414px) 
+	and (orientation : landscape)
+{
+	
+#map {
+	height: 200px;
+}
+
+#input {
+	display: inline-block;
+	margin: .50em 0 0 0;
+	width: 100%;
+}
+
+#inputElements {
+	margin: 0 1.5em 0 2em;
+}
+
+#zip {
+	padding: 3px 0px 5px 5px;
+	float: left;
+	border-color: #1ABC9C;
+	border-radius: 6px;
+	margin: 0px 5px 15px 5px;
+	font-size: 17px;
+}
+
+#btn {
+	-webkit-appearance: none;
+}
+
+.resultsDisplay {
+	margin: .2em 0 0 0;
+	font-size: 5em;
+	width: 80%
+}
+
+.weatherLabels {
+	font-size: .25em;
+	margin-bottom: 20px;
+}
+
+#footer {
+	position: relative;
+	margin-top: 35px
+}
+
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~ iPhone 6 portrait ~~~~~~~~~~~~~~~~~~~~~ */
