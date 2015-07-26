@@ -8,7 +8,6 @@ function geonamesCallback ( data ) {
     lng = +data.postalcodes[0].lng;
     lat = +data.postalcodes[0].lat;
     placeName = data.postalcodes[0].placeName;
-    getMap();
 }
 
 function getLocation() {
@@ -51,7 +50,7 @@ function getLocation() {
         fioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?callback=forcastioCallback";
         fioScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(fioScript);
-    },1000);
+    },750);
 }
 
 //~~~~~~~~~~~~ API Parsing and averaging of results ~~~~~~~~~~~~//
@@ -88,12 +87,12 @@ function forcastioCallback ( data ) {
     document.getElementById( 'fioDiv' ).innerHTML = fioJSON + '&ordm';
     document.getElementById( 'fioLink' ).setAttribute( 'href', "http://forecast.io/#/f/" + lat + "," + lng );
     getAverage();
+    getMap();
 }
 
 //find average and inject into page
 function getAverage () {
-    var average = ( Math.round( ( yahooJSON + owmJSON + wuJSON + fioJSON ) / 4 ) );
-    document.getElementById( 'averageDiv' ).innerHTML = average + '&ordm';
+    averageMath = ( Math.round( ( yahooJSON + owmJSON + wuJSON + fioJSON ) / 4 ) );
 }    
 
 
@@ -110,10 +109,10 @@ function getMap() {
     var map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ lat, lng ], 6 );
     var popup = L.popup()
         .setLatLng( [ lat, lng ] )
-        .setContent( placeName )
+        .setContent( "Average Reported Temp for " + placeName + ": " + averageMath  + '&ordm' )
         .openOn( map );
     L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
-        attribution: 'Map data &#169 OpenWeatherMap',    
+        attribution: 'Data &#169 OpenWeatherMap',    
     }).addTo(map);
 }
 

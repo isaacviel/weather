@@ -85,6 +85,34 @@ h1 {
 }
 
 
+.leaflet-popup-content-wrapper {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+}
+
+
+.leaflet-popup-tip {
+  width: 10px;
+  height: 10px;
+  margin: -7px auto 0;
+}
+
+
+.leaflet-container a.leaflet-popup-close-button {
+  display: none;
+}
+
+
+.leaflet-popup-content h5 {
+  margin-top: 1em;
+  text-transform: none;
+  text-align: center;
+  font-family: "Cabin", Helvetica, Arial, Sans-serif;
+}
+
 #label {
 	font-family: sans-serif;
 	font-size: 200%;
