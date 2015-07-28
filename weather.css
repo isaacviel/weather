@@ -85,34 +85,6 @@ h1 {
 }
 
 
-.leaflet-popup-content-wrapper {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
-  border-radius: 0;
-}
-
-
-.leaflet-popup-tip {
-  width: 10px;
-  height: 10px;
-  margin: -7px auto 0;
-}
-
-
-.leaflet-container a.leaflet-popup-close-button {
-  display: none;
-}
-
-
-.leaflet-popup-content h5 {
-  margin-top: 1em;
-  text-transform: none;
-  text-align: center;
-  font-family: "Cabin", Helvetica, Arial, Sans-serif;
-}
-
 #label {
 	font-family: sans-serif;
 	font-size: 200%;
@@ -123,7 +95,7 @@ h1 {
 #input {
 	width: 100%;
 	text-align: center;
-	margin: 35px 0 0 0;
+	margin: 35px 0 45px;
 }
 
 #inputElements {
@@ -138,6 +110,8 @@ h1 {
 	width: 196px;
 	padding: 0px 0px 8px 5px;
 }
+
+/*############################### Weather Cards ###############################*/
 
 #btn {
 	font-size: 17px;
@@ -154,9 +128,12 @@ h1 {
 
 
 #resultsDiv {
-	width: 100%;
-	margin: 5% 0 0 0;
-	text-align: center;
+  width: 100%;
+  text-align: center;
+}
+
+.container {
+  position: relative;
 }
 
 .weatherLabels {
@@ -168,21 +145,63 @@ h1 {
 	padding: 10px 0px;
 }
 
-.resultsDisplay {
-	display: inline-block;
-	font-family: sans-serif;
-	text-align: center;
-	font-size: 500%;
-	color: #585858;
-	background: #FFF none repeat scroll 0% 0%;
-	margin: 0% 0% 0% 0.25em;
-	box-shadow: 3px 3px 1px #D9D9D9;
-	width: 300px;
-	padding: 20px 0 0 0;
+.cardHolder {
+    display: inline-block;
+    margin: 0px 15px;
 }
+
+/* card fronts and backs */
+.card__front,
+.card__back {
+    text-align: center;
+    color: #585858;
+    background: #FFF none repeat scroll 0% 0%;
+    margin: 0% 0% 0% 0%;
+    box-shadow: 3px 3px 1px #D9D9D9;
+    width: 300px;
+    height: 300px;
+    padding: 20px 0 0 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+}
+
+.card__front {
+	position: absolute;
+}
+
+.card__back {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+
+/* click effect */
+.card.effect__click.flipped .card__front {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.card.effect__click.flipped .card__back {
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0);
+}
+
+
+.tempNumber {
+	font-family: sans-serif;
+	font-size: 5.5em;
+}
+
 
 .serviceLinks {
 	text-decoration: none;
+}
+
+
+.atribUi {
+	margin: 50px 0px 0px 0px;
 }
 
 
@@ -240,15 +259,22 @@ h1 {
 	-webkit-appearance: none;
 }
 
-.resultsDisplay {
-	margin: .2em 0 0 0;
-	font-size: 5em;
-	width: 80%
+.cardHolder {
+	display: inline-block;
+	margin: 40px 0px 0px 0px;
 }
 
 .weatherLabels {
-	font-size: .25em;
 	margin-bottom: 20px;
+	font-family: sans-serif;
+}
+
+.tempNumber {
+	margin-top: 25px;
+}
+
+.linkButton {
+margin-top: 30px;
 }
 
 #footer {
@@ -269,43 +295,20 @@ h1 {
 	height: 200px;
 }
 
-#input {
-	display: inline-block;
-	margin: .50em 0 0 0;
-	width: 100%;
-}
-
-#inputElements {
-	margin: 0 1.5em 0 2em;
-}
-
-#zip {
-	padding: 3px 0px 5px 5px;
-	float: left;
-	border-color: #1ABC9C;
-	border-radius: 6px;
-	margin: 0px 5px 15px 5px;
-	font-size: 17px;
-}
 
 #btn {
 	-webkit-appearance: none;
 }
 
-.resultsDisplay {
-	margin: .2em 0 0 0;
-	font-size: 5em;
-	width: 80%
-}
-
-.weatherLabels {
-	font-size: .25em;
-	margin-bottom: 20px;
-}
 
 #footer {
 	position: relative;
 	margin-top: 35px
+}
+
+.cardHolder {
+	display: inline-block;
+	margin: 20px 10px;
 }
 
 }
@@ -341,10 +344,50 @@ h1 {
 	-webkit-appearance: none;
 }
 
-.resultsDisplay {
-	font-size: 3.7em;
-	margin: .2em 0em 0em 0em;
-	width: 80%
+.cardHolder {
+	display: inline-block;
+	margin: 40px 0px 0px 0px;
+}
+
+.weatherLabels {
+	margin-bottom: 20px;
+	font-family: sans-serif;
+}
+
+.tempNumber {
+	margin-top: 25px;
+}
+
+.linkButton {
+margin-top: 30px;
+}
+
+#footer {
+	position: relative;
+	margin-top: 35px
+}
+
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ iPhone 6 Landscape ~~~~~~~~~~~~~~~~~~~~~ */
+@media only screen 
+	and (min-device-width : 0px) 
+	and (max-device-width : 375px) 
+	and (orientation : landscape)
+{
+	
+#map {
+	height: 200px;
+}
+
+
+#btn {
+	-webkit-appearance: none;
+}
+
+.cardHolder {
+	display: inline-block;
+	margin: 20px 10px;
 }
 
 #footer {
@@ -385,12 +428,11 @@ h1 {
 
 #resultsDiv {
 	margin: 8em 0 0 0;
-	padding: 0 0 0 2.5em
 }
 
-.resultsDisplay {
-	font-size: 4.5em;
-	margin: .7em .6em 0em .1em;
+#footer {
+	position: relative;
+	margin-top: 95px;
 }
 
 }
@@ -402,36 +444,23 @@ h1 {
 	and (orientation : landscape)
 {
 
-#input {
-	display: table;
-	margin: 5px 30% 0px 0px;
-	width: 30%;
-	box-sizing: border-box;
-	vertical-align: baseline;
-	float: right;
-}
-
-#zip {
-	padding: 3px 0px 5px 5px;
-	float: left;
-	border-color: #1ABC9C;
-	border-radius: 6px;
-	margin: 0px 5px 15px 5px;
-	font-size: 17px;
-}
-
 #btn {
-	font-size: 20px;
-	border: medium none;
-	width: 196px;
-	padding: 5px 0px 5px 0px;
-	margin: 0px 105px 0px 0px;
-	background-color: #1ABC9C;
 	-webkit-appearance: none;
 }
 
 #resultsDiv {
-	margin: 120px 0px 0px 0px;
+	margin: 0px 50px 0px 55px;
+	width: 90%;
+}
+
+.cardHolder {
+	display: inline-block;
+	margin: 20px 10px;
+}
+
+#footer {
+	position: relative;
+	margin-top: 95px;
 }
 
 }
