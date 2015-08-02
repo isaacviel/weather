@@ -20,32 +20,31 @@ function getLocation() {
     // geocode zipcode using GeoName's API
     var locateScript = document.createElement('script');
     locateScript.src = "http://api.geonames.org/postalCodeLookupJSON?postalcode=" + zip + "&country=US&username=isaac86hatch&callback=geonamesCallback";
-    locateScript.async = true;
     document.getElementsByTagName( 'head' )[ 0 ].appendChild(locateScript);
     
     
 //~~~~~~~~~~~~ Create scripts for API endpoints ~~~~~~~~~~~~//
     
     // build a script for the yahoo API using zip input and add it to the head
-    var yahooScript = document.createElement( 'script' );
-    yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where location='" + zip + "'&format=json&callback=yahooCallback";
-    yahooScript.async = true;
-    document.getElementsByTagName( 'head' )[ 0 ].appendChild(yahooScript);
+    setTimeout(function() {    
+        var yahooScript = document.createElement( 'script' );
+        yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where location='" + zip + "'&format=json&callback=yahooCallback";
+        yahooScript.async = true;
+        document.getElementsByTagName( 'head' )[ 0 ].appendChild(yahooScript);
 
     // create a script for the Open Weather Maps API using zip input and add it to the head
-    var wuScript = document.createElement('script');
-    wuScript.src = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + zip + ".json?callback=wundergroundCallback";
-    wuScript.async = true;
-    document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuScript);
+        var wuScript = document.createElement('script');
+        wuScript.src = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + zip + ".json?callback=wundergroundCallback";
+        wuScript.async = true;
+        document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuScript);
     
     // create a script for the Open Weather Maps API using zip input and add it to the head
-    var owmScript = document.createElement('script');
-    owmScript.src = "http://api.openweathermap.org/data/2.5/weather/?zip=" + zip + "&units=imperial&callback=owmCallback";
-    owmScript.async = true;
-    document.getElementsByTagName( 'head' )[ 0 ].appendChild(owmScript);
-    
+        var owmScript = document.createElement('script');
+        owmScript.src = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCallback";
+        owmScript.async = true;
+        document.getElementsByTagName( 'head' )[ 0 ].appendChild(owmScript);
+        
     // create a script for the Open Weather Maps API using zip input and add it to the head
-    setTimeout(function() {
         var fioScript = document.createElement('script');
         fioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?callback=forcastioCallback";
         fioScript.async = true;
@@ -76,7 +75,7 @@ function wundergroundCallback ( data ) {
 // Parse data from open weather maps api and add it to empty div
 function owmCallback ( data ) {
     owmJSON = +data.main.temp;
-    owmLink = data.dt;
+    owmLink = data.id;
     document.getElementById( 'owmDiv' ).innerHTML = owmJSON + '&ordm';
     document.getElementById( 'owmLink' ).setAttribute( 'href', 'http://openweathermap.org/city/' + owmLink );
 }
