@@ -201,9 +201,16 @@ h1 {
 
 
 .atribUi {
-	margin: 50px 0px 0px 0px;
+	margin: 75px 0px 0px 0px;
 }
 
+.highLow{
+	font-size: 3em;
+}
+
+.linkBack {
+	margin-top: 120px;
+}
 
 #footer {
 	bottom: 5px;
