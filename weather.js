@@ -3,28 +3,36 @@
 var lng;
 var lat;
 var placeName;
+var hold = 0;
 
 function geonamesCallback ( data ) {
-    lng = +data.postalcodes[0].lng;
-    lat = +data.postalcodes[0].lat;
-    placeName = data.postalcodes[0].placeName;
+    if (+data.postalcodes == '') {
+        alert( 'Please enter a valid US Zip code');
+    }   else {
+            lng = +data.postalcodes[0].lng;
+            lat = +data.postalcodes[0].lat;
+            placeName = data.postalcodes[0].placeName;
+            buildScripts();
+        }  
 }
-
+    
 function getLocation() {
     
     //~~~~~~~~~~~~ Get zip code value and geocode it with Geoname's API ~~~~~~~~~~~~//
 
     // get zip code input
-    var zip = document.getElementById( 'zip' ).value;
+    zip = document.getElementById( 'zip' ).value;
     
     // geocode zipcode using GeoName's API
-    var locateScript = document.createElement('script');
+    locateScript = document.createElement('script');
     locateScript.src = "http://api.geonames.org/postalCodeLookupJSON?postalcode=" + zip + "&country=US&username=isaac86hatch&callback=geonamesCallback";
+    locateScript.async = true;
     document.getElementsByTagName( 'head' )[ 0 ].appendChild(locateScript);
-    
-    
+}
+
 //~~~~~~~~~~~~ Create scripts for API endpoints ~~~~~~~~~~~~//
-    
+
+function buildScripts() {   
     // build a script for the yahoo API using zip input and add it to the head  
         var yahooScript = document.createElement( 'script' );
         yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where location='" + zip + "'&format=json&callback=yahooCallback";
@@ -42,8 +50,7 @@ function getLocation() {
         wuForecastScript.src = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + zip + ".json?callback=wuForecast";
         wuForecastScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuForecastScript);
-        
-    setTimeout(function() {  
+         
     // create a script for the Open Weather Maps Current API using zip input and add it to the head
         var owmCurrentScript = document.createElement('script');
         owmCurrentScript.src = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent";
@@ -60,9 +67,7 @@ function getLocation() {
     // create a script for the Open Weather Maps API using zip input and add it to the head
         var fioScript = document.createElement('script');
         fioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + '?exclude=[minutely,hourly,alerts,flags]&callback=forcastioCallback';
-        fioScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(fioScript);
-    },1250);
 }
 
 //~~~~~~~~~~~~ API Parsing and averaging of results ~~~~~~~~~~~~//
@@ -116,20 +121,20 @@ function owmForecast ( data ) {
 
 // Parse data from forecast.io DarkSky api and add it to empty div
 function forcastioCallback ( data ) {
-    fioJSON = +data.currently.temperature;
-    fioHigh = +data.daily.data[0].temperatureMax;
     fioLow = +data.daily.data[0].temperatureMin;
+    fioHigh = +data.daily.data[0].temperatureMax;
+    fioJSON = +data.currently.temperature;
+    document.getElementById( 'fioLow' ).innerHTML = fioLow;
+    document.getElementById( 'fioHigh' ).innerHTML = fioHigh;
     document.getElementById( 'fioDiv' ).innerHTML = fioJSON + '&ordm';
     document.getElementById( 'fioLink' ).setAttribute( 'href', "http://forecast.io/#/f/" + lat + "," + lng );
-    document.getElementById( 'fioHigh' ).innerHTML = fioHigh;
-    document.getElementById( 'fioLow' ).innerHTML = fioLow;
     getAverage();
-    getMap();
-}
+}   
 
 //find average and inject into page
 function getAverage () {
     averageMath = ( Math.round( ( yahooJSON + owmJSON + wuJSON + fioJSON ) / 4 ) );
+    getMap();
 }    
 
 
