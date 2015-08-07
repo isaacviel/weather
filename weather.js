@@ -1,10 +1,12 @@
-//fires when get weather button is clicked
 
 var lng;
 var lat;
 var placeName;
 var hold = 0;
+averageArray = [];
 
+
+//fires when get weather button is clicked
 function geonamesCallback ( data ) {
     if (+data.postalcodes == '') {
         alert( 'Please enter a valid US Zip code');
@@ -16,9 +18,9 @@ function geonamesCallback ( data ) {
         }  
 }
     
-function getLocation() {
+//~~~~~~~~~~~~ Get zip code value and geocode it with Geoname's API ~~~~~~~~~~~~//
     
-    //~~~~~~~~~~~~ Get zip code value and geocode it with Geoname's API ~~~~~~~~~~~~//
+function getLocation() {
 
     // get zip code input
     zip = document.getElementById( 'zip' ).value;
@@ -84,6 +86,7 @@ function yahooCallback ( data ) {
     document.getElementById( 'yahooLink' ).setAttribute( 'href', yahooLink );
     document.getElementById( 'yahooHigh' ).innerHTML = yahooHigh;
     document.getElementById( 'yahooLow' ).innerHTML = yahooLow;
+    averageArray.push(yahooJSON);
 }
 
 // Parse data from current wunderground api and add it to empty div
@@ -92,6 +95,7 @@ function wuCurrent ( data ) {
     wuLink = data.current_observation.forecast_url;
     document.getElementById( 'wuDiv' ).innerHTML = wuJSON + '&ordm';
     document.getElementById( 'wuLink' ).setAttribute( 'href', wuLink );
+    averageArray.push(wuJSON);
 }
 
 // Parse data from weather wunderground api and add it to empty div
@@ -108,6 +112,7 @@ function owmCurrent ( data ) {
     owmLink = data.id;
     document.getElementById( 'owmDiv' ).innerHTML = owmJSON + '&ordm';
     document.getElementById( 'owmLink' ).setAttribute( 'href', 'http://openweathermap.org/city/' + owmLink );
+    averageArray.push(owmJSON);
 }
 
 // Parse data from open weather maps forcast api and add it to empty div
@@ -128,27 +133,27 @@ function forcastioCallback ( data ) {
     document.getElementById( 'fioHigh' ).innerHTML = fioHigh;
     document.getElementById( 'fioDiv' ).innerHTML = fioJSON + '&ordm';
     document.getElementById( 'fioLink' ).setAttribute( 'href', "http://forecast.io/#/f/" + lat + "," + lng );
+    averageArray.push(fioJSON);
     getAverage();
 }   
 
-//find average and inject into page
-function getAverage () {
-    averageMath = ( Math.round( ( yahooJSON + owmJSON + wuJSON + fioJSON ) / 4 ) );
-    getMap();
-}    
+//~~~~~~~~~~~~ Get average and and call map positioning ~~~~~~~~~~~~
 
+function getAverage() {
+    for (var i = 0, sum = 0; i < averageArray.length; sum += averageArray[i++]);
+    averageMath = (Math.round( sum / averageArray.length) );
+    getMap();
+}
 
 //~~~~~~~~~~~~ Leaftlet.js and Mapbox ~~~~~~~~~~~~
 
+// Build map onload
+L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
+map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ 39.833333, -98.583333 ], 3 );
+
+// Updated map with input location
 function getMap() {
-    
-    //create empty result divs
-    buildMap = document.createElement( 'div' );
-    buildMap.setAttribute( 'id', 'map' );
-    currentDiv = document.getElementById( "input" );
-    document.body.insertBefore( buildMap, currentDiv );
-    L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
-    var map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ lat, lng ], 6 );
+    map.setView( [ lat, lng ], 6 );
     var popup = L.popup()
         .setLatLng( [ lat, lng ] )
         .setContent( "Average Reported Temp for " + placeName + ": " + averageMath  + '&ordm' )
