@@ -123,8 +123,10 @@ h1 {
 	vertical-align: middle;
 	cursor: pointer;
 	background-color: #1ABC9C;
-	width: 196px;
+	/*width: 196px;*/
 }
+
+
 
 
 #resultsDiv {
