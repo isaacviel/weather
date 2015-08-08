@@ -1,3 +1,5 @@
+//©Isaac Viel v1.0
+
 
 var lng;
 var lat;
