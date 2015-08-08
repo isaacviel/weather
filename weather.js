@@ -1,7 +1,7 @@
 
 var lng;
 var lat;
-var placeName;
+var placeName = 0;
 var hold = 0;
 averageArray = [];
 
@@ -169,17 +169,21 @@ function getAverage() {
 // Build map onload
 L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
 map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ 39.833333, -98.583333 ], 3 );
+L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
+    attribution: 'Data &#169 OpenWeatherMap',    
+    }).addTo(map);
 
 // Updated map with input location
 function getMap() {
     map.setView( [ lat, lng ], 6 );
     var popup = L.popup()
         .setLatLng( [ lat, lng ] )
-        .setContent( "Average Reported Temp for " + placeName + ": " + averageMath  + '&ordm' )
-        .openOn( map );
-    L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png', {
-        attribution: 'Data &#169 OpenWeatherMap',    
-    }).addTo(map);
+        if (placeName == 0 ) {
+            popup.setContent( "Average Reported Temp for this location:" + averageMath  + '&ordm' )
+        } else {
+        popup.setContent( "Average Reported Temp for " + placeName + ": " + averageMath  + '&ordm' )
+        }
+        popup.openOn( map );
 }
 
 
