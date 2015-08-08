@@ -6,20 +6,25 @@ var hold = 0;
 averageArray = [];
 
 
-//fires when get weather button is clicked
-function geonamesCallback ( data ) {
-    if (+data.postalcodes == '') {
-        alert( 'Please enter a valid US Zip code');
-    }   else {
-            lng = +data.postalcodes[0].lng;
-            lat = +data.postalcodes[0].lat;
-            placeName = data.postalcodes[0].placeName;
-            buildScripts();
-        }  
+//~~~~~~~~~~~~ If user choses current location run this function ~~~~~~~~~~~~//
+
+//geolocating
+function locate() {
+    navigator.geolocation.getCurrentPosition(coords);
 }
+
+//Parse geolocation into lat,lng data    
+function coords(position) {
+    lat = position.coords.latitude;
+    lng = position.coords.longitude;
+    console.log( lat + ' , ' + lng )
+    buildScripts();
+}
+
     
 //~~~~~~~~~~~~ Get zip code value and geocode it with Geoname's API ~~~~~~~~~~~~//
     
+//fires when get weather button is clicked
 function getLocation() {
 
     // get zip code input
@@ -32,24 +37,37 @@ function getLocation() {
     document.getElementsByTagName( 'head' )[ 0 ].appendChild(locateScript);
 }
 
+
+// Parse Geonames API and create give lat, lng values
+function geonamesCallback ( data ) {
+    if (+data.postalcodes == '') {
+        alert( 'Please enter a valid US Zip code');
+    }   else {
+            lng = +data.postalcodes[0].lng;
+            lat = +data.postalcodes[0].lat;
+            //placeName = data.postalcodes[0].placeName;
+            buildScripts();
+        }  
+}
+
 //~~~~~~~~~~~~ Create scripts for API endpoints ~~~~~~~~~~~~//
 
 function buildScripts() {   
     // build a script for the yahoo API using zip input and add it to the head  
         var yahooScript = document.createElement( 'script' );
-        yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where location='" + zip + "'&format=json&callback=yahooCallback";
+        yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback";
         yahooScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(yahooScript);
-
+        
     // create a script for the Weather Underground Current Conditions API using zip input and add it to the head
         var wuCurrentScript = document.createElement('script');
-        wuCurrentScript.src = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + zip + ".json?callback=wuCurrent";
+        wuCurrentScript.src = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent";
         wuCurrentScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuCurrentScript);
         
     // create a script for the Weather Underground Forecast API using zip input and add it to the head
         var wuForecastScript = document.createElement('script');
-        wuForecastScript.src = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + zip + ".json?callback=wuForecast";
+        wuForecastScript.src = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast";
         wuForecastScript.async = true;
         document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuForecastScript);
          
@@ -82,6 +100,7 @@ function yahooCallback ( data ) {
     yahooHigh = +data.query.results.channel.item.forecast[0].high;
     yahooLow = +data.query.results.channel.item.forecast[0].low;
     yahooLink = data.query.results.channel.link;
+    placeName = data.query.results.channel.location.city;
     document.getElementById( 'yahooDiv' ).innerHTML = yahooJSON + '&ordm';
     document.getElementById( 'yahooLink' ).setAttribute( 'href', yahooLink );
     document.getElementById( 'yahooHigh' ).innerHTML = yahooHigh;
@@ -162,6 +181,7 @@ function getMap() {
         attribution: 'Data &#169 OpenWeatherMap',    
     }).addTo(map);
 }
+
 
 //~~~~~~~~~~~~ Card Flipping ~~~~~~~~~~~~
 
