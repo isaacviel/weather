@@ -8,6 +8,7 @@ var hold = 0;
 averageArray = [];
 
 
+
 //~~~~~~~~~~~~ If user choses current location run this function ~~~~~~~~~~~~//
 
 //geolocating
@@ -54,43 +55,23 @@ function geonamesCallback ( data ) {
 
 //~~~~~~~~~~~~ Create scripts for API endpoints ~~~~~~~~~~~~//
 
-function buildScripts() {   
-    // build a script for the yahoo API using zip input and add it to the head  
-        var yahooScript = document.createElement( 'script' );
-        yahooScript.src = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback";
-        yahooScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(yahooScript);
-        
-    // create a script for the Weather Underground Current Conditions API using zip input and add it to the head
-        var wuCurrentScript = document.createElement('script');
-        wuCurrentScript.src = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent";
-        wuCurrentScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuCurrentScript);
-        
-    // create a script for the Weather Underground Forecast API using zip input and add it to the head
-        var wuForecastScript = document.createElement('script');
-        wuForecastScript.src = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast";
-        wuForecastScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(wuForecastScript);
-         
-    // create a script for the Open Weather Maps Current API using zip input and add it to the head
-        var owmCurrentScript = document.createElement('script');
-        owmCurrentScript.src = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent";
-        owmCurrentScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(owmCurrentScript);
-        
-    // create a script for the Open Weather Maps Forecast API using zip input and add it to the head
-        var owmForecastScript = document.createElement('script');
-        owmForecastScript.src = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmForecast";
-        owmForecastScript.async = true;
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(owmForecastScript);
-        
-        
-    // create a script for the Open Weather Maps API using zip input and add it to the head
-        var fioScript = document.createElement('script');
-        fioScript.src = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + '?exclude=[minutely,hourly,alerts,flags]&callback=forcastioCallback';
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(fioScript);
+function buildScripts() {
+    weatherscripts = [];
+    allScripts = [   
+        yahooEndpoint = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback",
+        wuCurrentEndpoint = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent",
+        wuForecastEndpoint = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast",
+        owmCurrentEndpoint = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent",
+        owmForecastEndpoint = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmForecast",
+        fioEndpoint = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?exclude=[minutely,hourly,alerts,flags]&callback=forcastioCallback"
+    ]
+    for ( i = 0; i < allScripts.length; i++ ) {
+        weatherscripts[i] = document.createElement( 'script' );
+        weatherscripts[i].src = allScripts[i];
+        document.getElementsByTagName( 'head' )[ 0 ].appendChild(weatherscripts[i]);    
+    }
 }
+
 
 //~~~~~~~~~~~~ API Parsing and averaging of results ~~~~~~~~~~~~//
 
