@@ -1,7 +1,6 @@
 @charset "UTF-8";
 
 /*©Isaac Viel v1.0*/
-
 /*############################### Begin Reset ###############################*/
 
 html, body, div, span, applet, object, iframe,
@@ -51,7 +50,7 @@ table {
 
 
 body, html {
-	background: #ecf0f1;;
+	background: #CCDDDD;
 	padding: 0;
 	margin: 0;
 	
@@ -72,6 +71,7 @@ a:visited { color: #383838 }
 #head {
 	margin: 10px 0 10px 0;
 	color: #585858;
+	text-align: center;
 }
 
 
