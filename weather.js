@@ -67,8 +67,7 @@ function buildScripts() {
     ]
     for ( i = 0; i < allScripts.length; i++ ) {
         weatherscripts[i] = document.createElement( 'script' );
-        weatherscripts[i].src = allScripts[i];
-        document.getElementsByTagName( 'head' )[ 0 ].appendChild(weatherscripts[i]);    
+        weatherscripts[i].src = allScripts[i];    
     }
 }
 
