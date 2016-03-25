@@ -1,4 +1,4 @@
-//©Isaac Viel v1.0
+//©Isaac Viel v1.1
 
 
 var lng;
