@@ -58,7 +58,6 @@ function geonamesCallback ( data ) {
 function buildScripts() {
     weatherscripts = [];
     allScripts = [   
-        yahooEndpoint = "https://query.yahooapis.com/v1/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback",
         wuCurrentEndpoint = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent",
         wuForecastEndpoint = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast",
         owmCurrentEndpoint = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent",
@@ -75,21 +74,6 @@ function buildScripts() {
 
 //~~~~~~~~~~~~ API Parsing and averaging of results ~~~~~~~~~~~~//
 
-
-
-// Parse data from yahoo api and add it to empty div
-function yahooCallback ( data ) {
-    yahooJSON = +data.query.results.channel.item.condition.temp;
-    yahooHigh = +data.query.results.channel.item.forecast[0].high;
-    yahooLow = +data.query.results.channel.item.forecast[0].low;
-    yahooLink = data.query.results.channel.link;
-    placeName = data.query.results.channel.location.city;
-    document.getElementById( 'yahooDiv' ).innerHTML = yahooJSON + '&ordm';
-    document.getElementById( 'yahooLink' ).setAttribute( 'href', yahooLink );
-    document.getElementById( 'yahooHigh' ).innerHTML = yahooHigh;
-    document.getElementById( 'yahooLow' ).innerHTML = yahooLow;
-    averageArray.push(yahooJSON);
-}
 
 // Parse data from current wunderground api and add it to empty div
 function wuCurrent ( data ) {
