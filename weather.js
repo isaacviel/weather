@@ -60,8 +60,8 @@ function buildScripts() {
     allScripts = [   
         wuCurrentEndpoint = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent",
         wuForecastEndpoint = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast",
-        owmCurrentEndpoint = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent",
-        owmForecastEndpoint = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmForecast",
+        owmCurrentEndpoint = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&APPID=1e0a3297ef1c1ef33aeb0987b1bcdbc6&callback=owmCurrent",
+        owmForecastEndpoint = "http://api.openweathermap.org/data/2.5/forecast/daily?lat=" + lat + "&lon=" + lng + "&units=imperial&APPID=1e0a3297ef1c1ef33aeb0987b1bcdbc6&callback=owmForecast",
         fioEndpoint = "https://api.forecast.io/forecast/b0d5a7c997e089bb86c555d4cb73586e/" + lat + "," + lng + "?exclude=[minutely,hourly,alerts,flags]&callback=forcastioCallback"
     ]
     for ( i = 0; i < allScripts.length; i++ ) {
