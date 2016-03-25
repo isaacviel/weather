@@ -22,7 +22,7 @@
         <link href="weather.css" rel="StyleSheet" type="text/css">
 	<link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet">
         
-        <script src="weather.js" type="text/javascript"></script>
+        
 	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js' ></script>
         
         
@@ -39,7 +39,7 @@
             
         </div>
 
-	<div id="input">
+	<div class="input">
 		<div id="inputElements">
 			<input id="zip" placeholder="Enter US Zip Code" pattern="[0-9]*">
 		</div>
@@ -50,117 +50,117 @@
                         <input id="btn" onclick="locate()" type="button" value="Locate Me">
 		</div>
 	</div>
+        
+        <div class="input">
+            <div class="cardHolder">
+                    <div class="card effect__click">
+                            <div class="card__front">
+                                    <p class="weatherLabels" id="wuLabel">According to
+                                    Wunderground</p>
 
 
-			<div class="cardHolder">
-				<div class="card effect__click">
-					<div class="card__front">
-						<p class="weatherLabels" id="wuLabel">According to
-						Wunderground</p>
+                                    <div class="tempNumber" id="wuDiv">
+                                            <!--incoming wu data-->0
+                                    </div>
 
 
-						<div class="tempNumber" id="wuDiv">
-							<!--incoming wu data-->0
-                                                </div>
+                                    <div class="atribUi">
+                                            <a href="http://www.wunderground.com" target=
+                                            "_blank"><img src=
+                                            "wundergroundLogo_4c_horz.png"></a>
+                                    </div>
+                            </div>
 
 
-						<div class="atribUi">
-							<a href="http://www.wunderground.com" target=
-							"_blank"><img src=
-							"wundergroundLogo_4c_horz.png"></a>
-						</div>
-					</div>
+                            <div class="card__back">
+                                <p>High</p>
+                                    <span class="highLow" id="wuHigh"></span>
+                                        <br>
+                                <p>Low</p>
+                                    <span class="highLow" id="wuLow"></span>
+                                    
+                                    <div class="linkButton linkBack">
+                                            <a class="serviceLinks" id="wuLink">
+                                            <!--incomming link--><input id="btn" type="button"
+                                            value="Get All Weather"></a>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
 
 
-					<div class="card__back">
-					    <p>High</p>
-                                                <span class="highLow" id="wuHigh"></span>
-                                                    <br>
-                                            <p>Low</p>
-                                                <span class="highLow" id="wuLow"></span>
-                                                
-                                                <div class="linkButton linkBack">
-							<a class="serviceLinks" id="wuLink">
-							<!--incomming link--><input id="btn" type="button"
-							value="Get All Weather"></a>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div class="cardHolder">
+                    <div class="card effect__click">
+                            <div class="card__front">
+                                    <p class="weatherLabels" id="owmLabel">According to
+                                    Open Weather Maps</p>
 
 
-			<div class="cardHolder">
-				<div class="card effect__click">
-					<div class="card__front">
-						<p class="weatherLabels" id="owmLabel">According to
-						Open Weather Maps</p>
+                                    <div class="tempNumber" id="owmDiv">
+                                            <!--incoming owm data-->0
+                                    </div>
 
 
-						<div class="tempNumber" id="owmDiv">
-							<!--incoming owm data-->0
-						</div>
+                                    <div class="atribUi">
+                                            <a href="http://openweathermap.org/" target=
+                                            "_blank"><img src="owmlogo.png"></a>
+                                    </div>
+                            </div>
 
 
-						<div class="atribUi">
-							<a href="http://openweathermap.org/" target=
-							"_blank"><img src="owmlogo.png"></a>
-						</div>
-					</div>
+                            <div class="card__back">
+                                <p>High</p>
+                                    <span class="highLow" id="owmHigh"></span>
+                                        <br>
+                                <p>Low</p>
+                                    <span class="highLow" id="owmLow"></span>
+                                    
+                                    <div class="linkButton linkBack">
+                                            <a class="serviceLinks" id="owmLink">
+                                            <!--incomming link--><input id="btn" type="button"
+                                            value="Get All Weather"></a>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
 
 
-					<div class="card__back">
-					    <p>High</p>
-                                                <span class="highLow" id="owmHigh"></span>
-                                                    <br>
-                                            <p>Low</p>
-                                                <span class="highLow" id="owmLow"></span>
-                                                
-                                                <div class="linkButton linkBack">
-							<a class="serviceLinks" id="owmLink">
-							<!--incomming link--><input id="btn" type="button"
-							value="Get All Weather"></a>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div class="cardHolder">
+                    <div class="card effect__click">
+                            <div class="card__front">
+                                    <p class="weatherLabels" id="fioLabel">According to
+                                    Forecast.io</p>
 
 
-			<div class="cardHolder">
-				<div class="card effect__click">
-					<div class="card__front">
-						<p class="weatherLabels" id="fioLabel">According to
-						Forecast.io</p>
+                                    <div class="tempNumber" id="fioDiv">
+                                            <!--incoming fio data-->0
+                                    </div>
+
+                                    <div class="atribUi">
+                                            <a href="http://forecast.io/" target=
+                                            "_blank"><img src="fiologo.png"></a>
+                                    </div>
+                            </div>
 
 
-						<div class="tempNumber" id="fioDiv">
-							<!--incoming fio data-->0
-						</div>
-
-						<div class="atribUi">
-							<a href="http://forecast.io/" target=
-							"_blank"><img src="fiologo.png"></a>
-						</div>
-					</div>
-
-
-					<div class="card__back">
-					    <p>High</p>
-                                                <span class="highLow" id="fioHigh"></span>
-                                                    <br>
-                                            <p>Low</p>
-                                                <span class="highLow" id="fioLow"></span>
-                                                
-                                                <div class="linkButton linkBack" >
-							<a class="serviceLinks" id="fioLink">
-							<!--incomming link--><input id="btn" type="button"
-							value="Get All Weather"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="weather.js"></script>
+                            <div class="card__back">
+                                <p>High</p>
+                                    <span class="highLow" id="fioHigh"></span>
+                                        <br>
+                                <p>Low</p>
+                                    <span class="highLow" id="fioLow"></span>
+                                    
+                                    <div class="linkButton linkBack" >
+                                            <a class="serviceLinks" id="fioLink">
+                                            <!--incomming link--><input id="btn" type="button"
+                                            value="Get All Weather"></a>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+        </div>
+	
+        <script src="weather.js"></script>
 
 	<footer>
 		<div id="footer">
