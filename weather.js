@@ -152,7 +152,6 @@ function getAverage() {
 // Build map onload
 L.mapbox.accessToken = 'pk.eyJ1IjoiaXNhYWM4NmhhdGNoIiwiYSI6ImY1N2IyOTFkYmE2ODRiYzVjZDRjYTMwZjI4OTBiODMwIn0.i_AegoD95bTWOGXmMSmSJQ';
 map = L.mapbox.map( 'map', 'isaac86hatch.molik5lf' ).setView( [ 39.833333, -98.583333 ], 3 );
-L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png').addTo(map);
 
 // Updated map with input location
 function getMap() {
