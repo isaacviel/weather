@@ -50,7 +50,7 @@ table {
 
 
 body, html {
-	background: #CCDDDD;
+	background: #ecf0f1;
 	padding: 0;
 	margin: 0;
 	
@@ -106,7 +106,6 @@ h1 {
 }
 
 #zip {
-	border-color: #1ABC9C;
 	border-radius: 6px;
 	margin: 0px;
 	font-size: 17px;
