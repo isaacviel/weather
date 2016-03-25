@@ -58,7 +58,7 @@ function geonamesCallback ( data ) {
 function buildScripts() {
     weatherscripts = [];
     allScripts = [   
-        yahooEndpoint = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback",
+        yahooEndpoint = "https://query.yahooapis.com/v1/yql?q=select * from weather.forecast where woeid in (SELECT woeid FROM geo.placefinder WHERE text=\"" + lat + "," + lng + "\"and gflags=\"R\" )&format=json&callback=yahooCallback",
         wuCurrentEndpoint = "http://api.wunderground.com/api/b47611466aefec36/conditions/q/" + lat + "," + lng + ".json?callback=wuCurrent",
         wuForecastEndpoint = "http://api.wunderground.com/api/b47611466aefec36/forecast/q/" + lat + "," + lng + ".json?callback=wuForecast",
         owmCurrentEndpoint = "http://api.openweathermap.org/data/2.5/weather/?lat=" + lat + "&lon=" + lng + "&units=imperial&callback=owmCurrent",
